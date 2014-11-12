@@ -1,22 +1,18 @@
-from .settings import *
-from .paths import PROJECT_NAME
+from .settings import STATICFILES_STORAGE
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-#=============================================================================
+# =============================================================================
 # Testing
-#=============================================================================
+# =============================================================================
 del STATICFILES_STORAGE
-TEST_RUNNER = 'discover_runner.DiscoverRunner'
-TEST_DISCOVER_TOP_LEVEL = os.path.join(PROJECT_DIR, PROJECT_NAME)
-TEST_DISCOVER_ROOT = TEST_DISCOVER_TOP_LEVEL
 DATABASES = {
-        "default": {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': ':memory:',
-        }
+    "default": {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
     }
+}
 
 # This hasher makes tests run faster
 PASSWORD_HASHERS = (
