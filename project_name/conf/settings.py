@@ -13,6 +13,8 @@ M = milieu.init()
 DEBUG = M.DEBUG or False
 TEMPLATE_DEBUG = DEBUG
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 TIME_ZONE = 'GMT'
 USE_I18N = True
 SITE_ID = 1
@@ -134,6 +136,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
+    'password_reset',
+    'bootstrapform',
     'unholster',
 )
 

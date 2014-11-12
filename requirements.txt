@@ -10,4 +10,7 @@ psycopg2==2.5.4
 unholster.milieu==1.0.0
 werkzeug==0.9.6
 factory_boy==2.4.1
+pyjade==3.0.0
+django-password-reset==0.7
+django-bootstrap-form==3.1
 -e git+ssh://git@github.com/Unholster/unholster-django-base.git#egg=unholster_django_base
