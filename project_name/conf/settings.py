@@ -40,8 +40,8 @@ AUTH_USER_MODEL = 'unholster.User'
 
 ROOT_URLCONF = PROJECT_NAME + '.conf.urls'
 
-LOGIN_URL = '/accounts/login/'
-LOGOUT_URL = '/accounts/logout/'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = '/'
 
 STATIC_DOMAIN = M.STATIC_DOMAIN
