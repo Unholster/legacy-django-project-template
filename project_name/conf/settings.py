@@ -50,7 +50,7 @@ MEDIA_URL = M.MEDIA_URL or ('/uploads/%s/' % PROJECT_NAME)
 STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
 MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
 AWS_STORAGE_BUCKET_NAME = M.AWS_STORAGE_BUCKET_NAME
-AWS_QUERY_AUTH = False
+AWS_QUERYSTRING_AUTH = False
 
 STATICFILES_STORAGE = 'unholster.storage.StaticStorage'
 DEFAULT_FILE_STORAGE = 'unholster.storage.MediaStorage'
