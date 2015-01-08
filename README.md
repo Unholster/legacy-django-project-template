@@ -31,4 +31,21 @@ pip install -e .
 
 Once this is done, it should be a good time to make the repo's initial commit.
 
-## 
+## Basic configuration
+Most of the Django settings are delegated to environment variables. The basic ones you need to set before the project will work are:
+
+### SECRET_KEY
+Set this to anything you want in development (i.e. `export SECRET_KEY=foo`. When moving to production, the production's environment varialbe should have a strong secret key.
+
+### DATABASE_URL
+Set this to the URL for your database. We typically use Postgres and, in development, name the database as the project requiring no credentials for local access. Therefore our development database urls typically look like this: `postgres://localhost/project_name`
+Once you have your database setup remember to run `manage.py migrate`
+
+### DJANGO_ENV
+Our project layout includes 4 settings files under the `project_name/conf` directory:
+* `settings.py`: The main settings file. All basic settings should be defined here
+* `dev_settings.py`: This file first includes the main settings file, then applies any overrides specific to development environments.
+* `test_settings.py`: This file first includes the main settings file, then applies any overrides specific to test environments (i.e. used when running automated tests). The pytest.ini included in the template, includes a directive to automatically switch to this settings file when running tests.
+* `prod_settings.py`: This file first includes the main settings file, then applies any overrides specific to production environments (i.e. used when running automated tests).
+
+In order to switch between these files you may use the `DJANGO_ENV` environment variable, setting it to `dev`, `prod` or `test`. The `manage.py` will know how to switch between settings files based on this variable.
