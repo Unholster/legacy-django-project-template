@@ -21,7 +21,14 @@ pip insall django
 # Start project using template, in the repo's root
 # The --extension=ini parameter is important so that the pytest.ini file included is created correctly
 django-admin startproject --template=https://github.com/Unholster/django-project-template/archive/master.zip --extension=ini project_name .
+
+# Install the project in the virtualenv
+# Requirements first
+# Finally the project itself as an editable package
+pip install -r requirements.txt
+pip install -e .
 ```
 
 Once this is done, it should be a good time to make the repo's initial commit.
 
+## 
