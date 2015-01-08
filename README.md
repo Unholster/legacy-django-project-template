@@ -49,3 +49,19 @@ Our project layout includes 4 settings files under the `project_name/conf` direc
 * `prod_settings.py`: This file first includes the main settings file, then applies any overrides specific to production environments (i.e. used when running automated tests).
 
 In order to switch between these files you may use the `DJANGO_ENV` environment variable, setting it to `dev`, `prod` or `test`. The `manage.py` will know how to switch between settings files based on this variable.
+
+## Managing staticfile compilation
+
+Files stored under `project_name/static` will be served and handled as staticfiles.
+In addition, the project is installed from this template with a simple pipeline for compiled assets (Coffeescript, SASS).
+These should be stored under `project_name/static-src/{coffee,sass}` and will be compiled into `project_name\{compiled-js,compiled-css}`.
+
+In order to compile these assets you can use the bundled command: `manage.py grunt`. This will run a grunt watcher that compiels the sources whenever they are modified.
+
+For the pipeline to work, there is a little bit of setup required after creating the project:
+```
+cd project_name/grunt
+npm install
+```
+
+Once this is completed you can run the watcher with `manage.py grunt`. The directory you run the command from is irrelevant.
