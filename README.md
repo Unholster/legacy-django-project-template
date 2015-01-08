@@ -1,4 +1,4 @@
-# django-project-template
+# Unholster's Django project template
 Project template for Django
 
 ## Starting a project using this template
