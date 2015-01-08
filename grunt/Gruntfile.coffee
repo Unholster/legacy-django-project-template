@@ -1,12 +1,21 @@
 module.exports = (grunt) ->
+  grunt.loadNpmTasks "grunt-contrib-coffee"
+  grunt.loadNpmTasks "grunt-contrib-watch"
+  grunt.loadNpmTasks "grunt-contrib-uglify"
+  grunt.loadNpmTasks "grunt-contrib-sass"
+  grunt.loadNpmTasks "grunt-contrib-concat"
+
+  # Change base only after loading npm tasks
+  srcBase = grunt.option('srcBase')
+
   grunt.initConfig
 
     #Compile coffeescript files
     coffee:
       sourceMap: true
       app:
-        src: [ "./static-src/coffee/**.coffee" ]
-        dest: "./static-src/CACHE/app.js"
+        src: [ "#{srcBase}/static-src/coffee/**.coffee" ]
+        dest: "#{srcBase}/static-src/CACHE/app.js"
 
     #Concatenate all javascript libfiles into a single slug
     #Assumes individual files are already minified (no further uglification/minification)
@@ -14,9 +23,27 @@ module.exports = (grunt) ->
       options:
         separator: ';'
         stripBanners: true
-      dist:
-        src: [ "./static/lib/**.js" ]
-        dest: "./static/compiled-js/lib.js"
+      libjs:
+        src: [ "#{srcBase}/static/lib/**.js" ]
+        dest: "#{srcBase}/static/compiled-js/lib.js"
+      libcss:
+        src: [ "#{srcBase}/static/lib/**.css" ]
+        dest: "#{srcBase}/static/compiled-css/lib.css"
+
+    #Compile SASS files
+    sass:
+      all:
+        sourcemap: false
+        style: 'compressed'
+        files:[
+          {
+            expand: true
+            cwd: "#{srcBase}/static-src/sass/"
+            src: ["app.sass", "bootstrap.scss", "fontawesome/font-awesome.scss"]
+            dest: "#{srcBase}/static/compiled-css/"
+            ext: ".css"
+          }
+        ]
 
     #Published uglified version of compiled app.js
     uglify:
@@ -25,27 +52,24 @@ module.exports = (grunt) ->
         compress: false
         beautify: true
       app:
-        src: [ "./static-src/CACHE/app.js" ]
-        dest: "./static/compiled-js/app.js"
+        src: [ "#{srcBase}/static-src/CACHE/app.js" ]
+        dest: "#{srcBase}/static/compiled-js/app.js"
 
     # Watch relevant source files and perform tasks when they change
     watch:
       appScripts:
-        files: [ "./static-src/coffee/**.coffee" ]
+        files: [ "#{srcBase}/static-src/coffee/**.coffee" ]
         tasks: [ "coffee:app", "uglify:app" ]
 
       appStyle:
-        files: [ "./static-src/s[ac]ss/**.s[ac]ss" ]
-        tasks: [ "sass:app" , "sass:dist"]
+        files: [ "#{srcBase}/static-src/s[ac]ss/**/**.s[ac]ss" ]
+        tasks: [ "sass:all" ]
 
       libScripts:
-        files: [ "./static/lib/**.js" ]
-        tasks: [ "concat:dist" ]
+        files: [ "#{srcBase}/static/lib/**.js" ]
+        tasks: [ "concat:libjs" ]
+      libStyles:
+        files: [ "#{srcBase}/static/lib/**.css" ]
+        tasks: [ "concat:libcss" ]
 
-
-  grunt.loadNpmTasks "grunt-contrib-coffee"
-  grunt.loadNpmTasks "grunt-contrib-watch"
-  grunt.loadNpmTasks "grunt-contrib-uglify"
-  grunt.loadNpmTasks "grunt-contrib-sass"
-  grunt.loadNpmTasks "grunt-contrib-concat"
-  grunt.registerTask "default", ['coffee:app', 'sass:app', 'sass:dist', 'uglify:app', 'concat:dist']
+  grunt.registerTask "default", ['coffee:app', 'sass:all', 'uglify:app', 'concat']
