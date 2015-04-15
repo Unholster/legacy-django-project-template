@@ -16,7 +16,7 @@ cd repo-name
 mkvirtualenv project_name
 
 # Install Django
-pip insall django
+pip install Django
 
 # Start project using template, in the repo's root
 # The --extension=ini parameter is important so that the pytest.ini file included is created correctly
