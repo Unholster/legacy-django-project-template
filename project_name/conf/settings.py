@@ -40,20 +40,27 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = '/'
 
+
+# =============================================================================
+# Static files and frontend
+# =============================================================================
+FRONT_BUILD_DIR = 'static'
 STATIC_DOMAIN = M.STATIC_DOMAIN
 STATIC_URL = M.STATIC_URL or ('/static/%s/' % PROJECT_NAME)
-MEDIA_URL = M.MEDIA_URL or ('/uploads/%s/' % PROJECT_NAME)
 STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
-MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, PROJECT_NAME, 'static'),
+    os.path.join(PROJECT_DIR, PROJECT_NAME, FRONT_BUILD_DIR),
 )
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+MEDIA_URL = M.MEDIA_URL or ('/uploads/%s/' % PROJECT_NAME)
+MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
+
 
 # ==============================================================================
 # Middlewares
@@ -125,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'password_reset',
     'bootstrapform',
+    'frontflow',
 )
 
 # =============================================================================

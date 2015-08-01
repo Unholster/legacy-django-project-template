@@ -10,3 +10,4 @@ unholster.milieu==1.0.0
 werkzeug==0.9.6
 django-password-reset==0.7
 django-bootstrap-form==3.1
+-e git+ssh://git@github.com/unholster/django-frontflow.git#egg=django-frontflow
