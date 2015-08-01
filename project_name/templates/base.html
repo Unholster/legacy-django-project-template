@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'compiled-css/app.css' %}">
-    <link rel="stylesheet" href="{% static 'compiled-css/lib.css' %}">{% block head %}{% endblock %}
+    {% block head %}{% endblock %}
   </head>
   <body>
     <div class="container-fluid">{% if  show_navbars|default:True %}{% block navbar %}
@@ -34,6 +33,5 @@
       </div>
     </div>
   </body>
-  <script type="text/javascript" src="{% static 'compiled-js/lib.js' %}"></script>
-  <script type="text/javascript" src="{% static 'compiled-js/app.js' %}"></script>{% block scripts %}{% endblock %}
+  {% block scripts %}{% endblock %}
 </html>
