@@ -1,19 +1,14 @@
-Django>=1.7
+Django>=1.8
 dj-database-url==0.3.0
 django-extensions==1.4.6
-gunicorn==19.1.1
+gunicorn==19.2.1
 coverage==3.7.1
 django-coverage==1.2.4
-boto==2.34.0
+boto==2.36.0
 django-storages==1.1.8
-psycopg2==2.5.4
+psycopg2>=2.5.1
 unholster.milieu==1.0.0
 werkzeug==0.9.6
 factory_boy==2.4.1
-pyjade==3.0.0
 django-password-reset==0.7
 django-bootstrap-form==3.1
--e git+ssh://git@github.com/Unholster/unholster-django-base.git#egg=unholster_django_base
-pytest
-pytest-django
-pytest-xdist

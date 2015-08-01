@@ -1,6 +1,6 @@
 # Import global settings to make it easier to extend settings.
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
-from paths import PROJECT_DIR, PROJECT_NAME, VAR_ROOT
+from .paths import PROJECT_DIR, PROJECT_NAME, VAR_ROOT
 import os
 import milieu
 
@@ -99,8 +99,6 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 # =============================================================================
 import dj_database_url
 DATABASES = {'default': dj_database_url.config(default=M.DATABASE_URL)}
-if 'postgres' in DATABASES['default'].get('ENGINE', []):
-    DATABASES['default']['OPTIONS'] = {'autocommit': True}
 
 # =============================================================================
 # Caching
