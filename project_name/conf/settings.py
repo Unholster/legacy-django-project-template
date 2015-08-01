@@ -9,11 +9,8 @@ M = milieu.init()
 # ==============================================================================
 # Generic Django project settings
 # ==============================================================================
-
 DEBUG = M.DEBUG or False
 TEMPLATE_DEBUG = DEBUG
-
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 TIME_ZONE = 'GMT'
 USE_I18N = True
@@ -32,7 +29,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 ALLOWED_HOSTS = (M.ALLOWED_HOSTS,)
-AUTH_USER_MODEL = 'unholster.User'
 
 # ==============================================================================
 # Project URLS and media settings
@@ -49,11 +45,6 @@ STATIC_URL = M.STATIC_URL or ('/static/%s/' % PROJECT_NAME)
 MEDIA_URL = M.MEDIA_URL or ('/uploads/%s/' % PROJECT_NAME)
 STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
 MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
-AWS_STORAGE_BUCKET_NAME = M.AWS_STORAGE_BUCKET_NAME
-AWS_QUERYSTRING_AUTH = False
-
-STATICFILES_STORAGE = 'unholster.storage.StaticStorage'
-DEFAULT_FILE_STORAGE = 'unholster.storage.MediaStorage'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, PROJECT_NAME, 'static'),
@@ -80,10 +71,8 @@ MIDDLEWARE_CLASSES = (
 # Templates
 # ==============================================================================
 TEMPLATE_LOADERS = (
-    ('pyjade.ext.django.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 TEMPLATE_DIRS = (
@@ -136,7 +125,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'password_reset',
     'bootstrapform',
-    'unholster',
 )
 
 # =============================================================================
