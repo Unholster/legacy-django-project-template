@@ -6,7 +6,6 @@ TEMPLATE_DEBUG = DEBUG
 # =============================================================================
 # Testing
 # =============================================================================
-del STATICFILES_STORAGE
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.sqlite3',
