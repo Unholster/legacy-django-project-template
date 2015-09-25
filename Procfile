@@ -1,1 +1,0 @@
-web: gunicorn control_gestion.wsgi -b 0.0.0.0:$PORT --timeout=30

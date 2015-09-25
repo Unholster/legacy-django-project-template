@@ -1,6 +1,15 @@
 *~
 *.pyc
 docs/_build/*
-uploads
-dev.db
 *.egg-info
+.cache
+.env*
+.private*
+.DS_Store
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt

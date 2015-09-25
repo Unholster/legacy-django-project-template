@@ -2,6 +2,7 @@ from .settings import *  # NOQA
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+SECRET_KEY = 'test'
 
 # =============================================================================
 # Testing
