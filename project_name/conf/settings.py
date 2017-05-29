@@ -216,7 +216,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [(os.environ.get('REDIS_HOST', 'localhost'), 6379)],
         },
-        "ROUTING": "apps.base.routing.channel_routing",
+        "ROUTING": "{{project_name}}.apps.base.routing.channel_routing",
     },
 }
 
