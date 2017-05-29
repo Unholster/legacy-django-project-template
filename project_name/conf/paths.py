@@ -28,3 +28,25 @@ else:
     # Set the variable root to the local configuration location (which is
     # ignored by the repository).
     VAR_ROOT = os.path.join(PROJECT_DIR, PROJECT_NAME, 'var')
+
+
+class EnvironmentWrapper():
+    """
+        A simple wrapper for os.environ, it is no more than syntactic sugar.
+    """
+
+    def __init__(self) -> None:
+        self._memoized_keys = set()
+
+    def __getattr__(self, item):
+        self._memoized_keys.add(item)
+        return os.getenv(item, None)
+
+    def __setattr__(self, name: str, value) -> None:
+        if type(value) == str:
+            os.environ[name] = value
+        else:
+            super().__setattr__(name, value)
+
+
+E = EnvironmentWrapper()

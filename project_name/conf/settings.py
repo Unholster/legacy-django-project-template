@@ -1,30 +1,26 @@
 # Import global settings to make it easier to extend settings.
 
-from .paths import PROJECT_DIR, PROJECT_NAME, VAR_ROOT
+from .paths import PROJECT_DIR, PROJECT_NAME, VAR_ROOT, E
 import os
-import milieu
-
-
-M = milieu.init()
 
 # ==============================================================================
 # Generic Django project settings
 # ==============================================================================
-DEBUG = M.DEBUG or False
+DEBUG = E.DEBUG or False
 TEMPLATE_DEBUG = DEBUG
 
 TIME_ZONE = 'GMT'
 USE_I18N = True
 SITE_ID = 1
 
-SECRET_KEY = M.SECRET_KEY
+SECRET_KEY = E.SECRET_KEY
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-US'
 
 ADMINS = (
-    ('Administrator', M.ADMIN_EMAIL or "admin@unholster.com"),
+    ('Administrator', E.ADMIN_EMAIL or "admin@unholster.com"),
 )
 
 MANAGERS = ADMINS
@@ -46,8 +42,8 @@ LOGIN_REDIRECT_URL = '/'
 # Static files and frontend
 # =============================================================================
 FRONT_BUILD_DIR = 'static'
-STATIC_DOMAIN = M.STATIC_DOMAIN
-STATIC_URL = M.STATIC_URL or ('/static/%s/' % PROJECT_NAME)
+STATIC_DOMAIN = E.STATIC_DOMAIN
+STATIC_URL = E.STATIC_URL or ('/static/%s/' % PROJECT_NAME)
 STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
 
 STATICFILES_DIRS = (
@@ -59,7 +55,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-MEDIA_URL = M.MEDIA_URL or ('/uploads/%s/' % PROJECT_NAME)
+MEDIA_URL = E.MEDIA_URL or ('/uploads/%s/' % PROJECT_NAME)
 MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
 
 
@@ -94,22 +90,22 @@ TEMPLATE_DIRS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': M.DATABASE_NAME,
-        'USER': M.DATABASE_ROLE,
-        'PASSWORD': M.DATABASE_PASSWORD,
-        'HOST': M.DATABASE_HOST,
-        'PORT': M.DATABASE_PORT or '5432',
+        'NAME': E.DATABASE_NAME,
+        'USER': E.DATABASE_ROLE,
+        'PASSWORD': E.DATABASE_PASSWORD,
+        'HOST': E.DATABASE_HOST,
+        'PORT': E.DATABASE_PORT or '5432',
     }
 }
 
 # =============================================================================
 # Caching
 # =============================================================================
-if M.MEMCACHE_SERVERS:
+if E.MEMCACHE_SERVERS:
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': M.MEMCACHE_SERVERS,
+            'LOCATION': E.MEMCACHE_SERVERS,
             'TIMEOUT': 0,
             'BINARY': True,
         }
@@ -207,7 +203,7 @@ LOGGING = {
 # Celery
 # =============================================================================
 
-BROKER_URL = M.CELERY_URL or 'redis://localhost:6379/1'
+BROKER_URL = E.CELERY_URL or 'redis://localhost:6379/1'
 CELERY_RESULT_BACKEND = BROKER_URL or 'redis://localhost:6379/1'
-CELERYD_MAX_TASKS_PER_CHILD = M.CELERYD_MAX_TASKS_PER_CHILD or 1
-BROKER_POOL_LIMIT = M.CELERY_POOL_LIMIT or 0
+CELERYD_MAX_TASKS_PER_CHILD = E.CELERYD_MAX_TASKS_PER_CHILD or 1
+BROKER_POOL_LIMIT = E.CELERY_POOL_LIMIT or 0

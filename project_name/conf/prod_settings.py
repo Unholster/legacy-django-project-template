@@ -1,14 +1,19 @@
+from os import getenv
+from pathlib import Path
+
 import raven
 
 from .settings import *  # noqa
 
-ALLOWED_HOSTS = M.ALLOWED_HOSTS
+
+
+ALLOWED_HOSTS = E.ALLOWED_HOSTS
 # ==============================================================================
 # SENTRY
 # ==============================================================================
-if M.RAVEN_DSN:
+if E.RAVEN_DSN:
     RAVEN_CONFIG = {
-        'dsn': M.RAVEN_DSN,
+        'dsn': E.RAVEN_DSN,
         'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
     }
     INSTALLED_APPS = INSTALLED_APPS + (
@@ -21,7 +26,7 @@ if M.RAVEN_DSN:
     )
 
     LOGGING['handlers']['sentry'] = {
-        'level': M.SENTRY_LOGLEVEL or 'ERROR',
+        'level': E.SENTRY_LOGLEVEL or 'ERROR',
         'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
         'tags': {'custom-tag': 'x'},
     }
@@ -43,13 +48,13 @@ if M.RAVEN_DSN:
 # ==============================================================================
 # PAPERTRAIL
 # ==============================================================================
-if M.PAPERTRAIL_URL and M.PAPERTRAIL_PORT:
+if E.PAPERTRAIL_URL and E.PAPERTRAIL_PORT:
     LOGGER_NAME = '{{project_name}}'.upper()
     LOGGING['handlers']['PaperTrail'] = {
         'level': 'DEBUG',
         'class': 'logging.handlers.SysLogHandler',
         'formatter': 'papertrail',
-        'address': (M.PAPERTRAIL_URL, int(M.PAPERTRAIL_PORT))
+        'address': (E.PAPERTRAIL_URL, int(E.PAPERTRAIL_PORT))
     }
     LOGGING['formatters']['papertrail'] = {
         'format': f'%(asctime)s {LOGGER_NAME} %(name)s %(levelname)s %(message)s',

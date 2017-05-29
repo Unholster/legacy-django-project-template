@@ -28,11 +28,16 @@ django-admin startproject --template=https://github.com/Unholster/django-project
 pip install -r requirements.txt
 pip install -e .
 ```
-To set up tests, replace `project_name` in your `py.test` file with your project name
+Some files arent touched by startproject, to correct this, run
+sed -i -e 's/{{project_name}}/project_name/g' $(find . -type f)
+To set up tests, replace `{{project_name}}` in your `py.test` file with your project name
+sed -i -e 's/{{project_name}}/project_name/g' $(find . -type f)
+
+
 
 
 Once this is done, it should be a good time to make the repo's initial commit.
-
+c
 ## Basic configuration
 Most of the Django settings are delegated to environment variables. The basic ones you need to set before the project will work are:
 For development, you can store an .env file at the root of the project that will be automatically loaded. The .env file should be in your .gitignore.
