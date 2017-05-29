@@ -104,25 +104,17 @@ DATABASES = {
 # =============================================================================
 # Caching
 # =============================================================================
-if E.MEMCACHE_SERVERS:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': E.MEMCACHE_SERVERS,
-            'TIMEOUT': 0,
-            'BINARY': True,
-        }
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': E.CACHE_URL or 'redis://localhost:6379/0',
+    }, 'staticfiles': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'staticfiles',
+    }, 'template_cache': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': E.TEMPLATE_CACHE_URL or 'redis://localhost:6379/9',
     }
-else:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        }
-    }
-
-CACHES['staticfiles'] = {
-    'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    'LOCATION': 'staticfiles'
 }
 
 # =============================================================================
@@ -139,13 +131,14 @@ INSTALLED_APPS = (
     'channels',
     'rest_framework_swagger',
     'rest_framework',
-    '{{project_name}}.apps.base'
+    '{{project_name}}.apps.base',
+    'django_celery_beat',
 )
 
 # =============================================================================
 # Logging
 # =============================================================================
-LOG_DIR = M.LOG_DIR or M.VAR_ROOTos.environ.get('LOG_DIR', os.path.join(VAR_ROOT, 'log'))
+LOG_DIR = E.LOG_DIR or os.path.join(VAR_ROOT, 'log')
 os.makedirs(LOG_DIR, mode=0o777, exist_ok=True)
 LOGGING = {
     'version': 1,
