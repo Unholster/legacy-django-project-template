@@ -207,3 +207,19 @@ BROKER_URL = E.CELERY_URL or 'redis://localhost:6379/1'
 CELERY_RESULT_BACKEND = BROKER_URL or 'redis://localhost:6379/1'
 CELERYD_MAX_TASKS_PER_CHILD = E.CELERYD_MAX_TASKS_PER_CHILD or 1
 BROKER_POOL_LIMIT = E.CELERY_POOL_LIMIT or 0
+
+
+# =============================================================================
+# CHANNELS
+# =============================================================================
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(os.environ.get('REDIS_HOST', 'localhost'), 6379)],
+        },
+        "ROUTING": "apps.base.routing.channel_routing",
+    },
+}
