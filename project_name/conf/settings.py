@@ -15,6 +15,8 @@ SITE_ID = 1
 
 SECRET_KEY = E.SECRET_KEY
 
+VAR_ROOT = E.VAR_ROOT or VAR_ROOT ## Var root can be overriden
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-US'
@@ -44,7 +46,8 @@ LOGIN_REDIRECT_URL = '/'
 FRONT_BUILD_DIR = 'static'
 STATIC_DOMAIN = E.STATIC_DOMAIN
 STATIC_URL = E.STATIC_URL or ('/static/%s/' % PROJECT_NAME)
-STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
+
+STATIC_ROOT = E.STATIC_ROOT or os.path.join(VAR_ROOT, 'static')
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, PROJECT_NAME, FRONT_BUILD_DIR),
@@ -56,7 +59,7 @@ STATICFILES_FINDERS = (
 )
 
 MEDIA_URL = E.MEDIA_URL or ('/uploads/%s/' % PROJECT_NAME)
-MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
+MEDIA_ROOT = E.MEDIA_ROOT or os.path.join(VAR_ROOT, 'uploads')
 
 
 # ==============================================================================
@@ -142,7 +145,7 @@ INSTALLED_APPS = (
 # =============================================================================
 # Logging
 # =============================================================================
-LOG_DIR = os.environ.get('LOG_DIR', os.path.join(VAR_ROOT, 'log'))
+LOG_DIR = M.LOG_DIR or M.VAR_ROOTos.environ.get('LOG_DIR', os.path.join(VAR_ROOT, 'log'))
 os.makedirs(LOG_DIR, mode=0o777, exist_ok=True)
 LOGGING = {
     'version': 1,
@@ -230,7 +233,9 @@ CHANNEL_LAYERS = {
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
