@@ -1,3 +1,8 @@
+from dotenv import load_dotenv, find_dotenv
+# Activates env automatically with dev_settings.
+
+load_dotenv(find_dotenv())
+
 from .settings import *  # noqa
 
 DEBUG = True
