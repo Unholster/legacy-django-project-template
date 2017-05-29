@@ -20,7 +20,7 @@ pip install Django
 
 # Start project using template, in the repo's root
 # The --extension=ini parameter is important so that the pytest.ini file included is created correctly
-django-admin startproject --template=https://github.com/Unholster/django-project-template/archive/channels.zip --extension=ini project_name .
+django-admin startproject --template=https://github.com/Unholster/django-project-template/archive/master.zip --extension=ini project_name .
 
 # Install the project in the virtualenv
 # Requirements first
@@ -29,10 +29,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 Some files arent touched by startproject, to correct this, run
-sed -i -e 's/{{project_name}}/project_name/g' $(find . -type f)
-To set up tests, replace `{{project_name}}` in your `py.test` file with your project name
-sed -i -e 's/{{project_name}}/project_name/g' $(find . -type f)
-
+sed -i '' s/{{project_name}}/project_name/g $(find . -type f)
 
 
 
