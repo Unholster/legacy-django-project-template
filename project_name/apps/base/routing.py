@@ -6,7 +6,7 @@ from channels.handler import AsgiHandler
 from django.http import HttpResponse
 
 channel_routing = [
-    route('websocket.receive', 'apps.base.consumers.http_consumer'),
+    route('websocket.receive', '{{project_name}}.apps.base.consumers.http_consumer'),
 ]
 
 
